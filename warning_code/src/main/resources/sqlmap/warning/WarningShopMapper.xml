@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.warning.WarningShopMapper">
+  <resultMap id="BaseResultMap" type="com.entity.warning.WarningShop">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+    <result column="source_type" jdbcType="VARCHAR" property="sourceType" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, shop_id, shop_name,source_type
+  </sql>
+
+  <select id="selectByPrimaryKey"
+          parameterType="java.lang.Integer"
+          resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warning_shop
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey"
+          parameterType="java.lang.Integer">
+    delete from warning_shop
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective"
+          parameterType="com.entity.warning.WarningShop">
+    insert into warning_shop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="shopName != null">
+        shop_name,
+      </if>
+      <if test="sourceType != null">
+        source_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null">
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceType != null">
+        #{sourceType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective"
+          parameterType="com.entity.warning.WarningShop">
+    update warning_shop
+    <set>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null">
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceType != null">
+        source_type = #{sourceType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="findWarningShopPagination"
+          parameterType="map"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from warning_shop
+    where 1=1
+    <if test="dto.shopName !=null and dto.shopName !='' ">
+      and shop_name like concat('%',#{dto.shopName,jdbcType=VARCHAR},'%')
+    </if>
+    limit #{startNum} ,#{pageSize}
+  </select>
+
+  <select id="findWarningShopCount"
+          parameterType="com.dto.warning.WarningUserDTO"
+          resultType="java.lang.Integer">
+    SELECT count(1) FROM
+    warning_shop
+    WHERE 1=1
+    <if test="shopName !=null and shopName !='' ">
+      and shop_name like concat('%',#{shopName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+
+  <select id="findWarningShopByShopIdAndType"
+          parameterType="com.dto.warning.WarningUserDTO"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from warning_shop
+    where shop_id = #{shopId,jdbcType=INTEGER}
+    and source_type = #{sourceType,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="findUsersByGroupId"
+          resultType="com.dto.warning.WarningHeaderDTO"
+          parameterType="java.lang.Integer">
+      SELECT
+        wh.users
+      FROM
+      warning_group wg,
+      warning_header wh
+      where wg.warning_header_id = wh.id
+      and wg.id = #{groupId}
+  </select>
+
+  <select id="findUsersByGroupIdAndShopId"
+          resultType="java.lang.String"
+          >
+
+    SELECT
+	  wuser.`name`
+    FROM
+	  warning_user_shop ushop,
+	  warning_user wuser
+    WHERE
+	  ushop.user_id = wuser.id
+    AND ushop.warning_header_id = (
+	SELECT
+		wg.warning_header_id
+	FROM
+		warning_group wg
+	WHERE
+		wg.id =  #{groupId}
+    )
+    AND (
+	  ushop.shop_id  = #{shopId}
+	OR ushop.shop_id  = 1
+    )
+  </select>
+
+
+
+
+</mapper>

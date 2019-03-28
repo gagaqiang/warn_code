@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.sys.TenantDao">
+    <resultMap id="ResultMap" type="Tenant">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="version" column="version"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="getEntity" resultMap="ResultMap">
+        select * from tenant where id = #{id}
+    </select>
+
+    <insert id="create" parameterType="Tenant">
+        insert into tenant
+        ( create_date, code, name, status, modify_date)
+        values
+        ( now(), #{code}, #{name}, #{status}, now())
+    </insert>
+
+    <update id="update" parameterType="Tenant">
+        update tenant
+        set code = #{code}, name = #{name}, note = #{note}, version = version + 1
+        where id = #{id}
+    </update>
+
+    <update id="audit" parameterType="Tenant">
+        update tenant
+        set status=#{status}
+        where id = #{id}
+    </update>
+
+    <select id="getInfoByCode" resultMap="ResultMap">
+        select id, code, name, status, start_date, end_date, note, secret
+        from tenant
+        where code=#{tenantCode}
+    </select>
+
+    <select id="getInfoByName" resultMap="ResultMap">
+        select id, code, name, status, start_date, end_date, note
+        from tenant
+        where name=#{tenantName}
+    </select>
+
+    <select id="getListByName" resultMap="ResultMap">
+        select * from tenant where status=1 and code = #{name} or name like '%${name}%' limit 20
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from tenant
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

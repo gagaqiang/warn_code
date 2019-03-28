@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.warning.WarningUserShopMapper">
+  <resultMap id="BaseResultMap" type="com.entity.warning.WarningUserShop">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="warning_header_id" jdbcType="INTEGER" property="warningHeaderId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="attribuate1" jdbcType="VARCHAR" property="attribuate1" />
+    <result column="attribuate2" jdbcType="VARCHAR" property="attribuate2" />
+    <result column="attribuate3" jdbcType="VARCHAR" property="attribuate3" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, warning_header_id, user_id, shop_id, shop_name, create_date, attribuate1, attribuate2, 
+    attribuate3
+  </sql>
+
+  <select id="selectByPrimaryKey"
+          parameterType="java.lang.Integer"
+          resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warning_user_shop
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey"
+          parameterType="java.lang.Integer">
+    delete from warning_user_shop
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective"
+          keyProperty="id"
+          useGeneratedKeys="true"
+          parameterType="com.entity.warning.WarningUserShop">
+    insert into warning_user_shop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="warningHeaderId != null">
+        warning_header_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="shopName != null">
+        shop_name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="attribuate1 != null">
+        attribuate1,
+      </if>
+      <if test="attribuate2 != null">
+        attribuate2,
+      </if>
+      <if test="attribuate3 != null">
+        attribuate3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="warningHeaderId != null">
+        #{warningHeaderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null">
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribuate1 != null">
+        #{attribuate1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate2 != null">
+        #{attribuate2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate3 != null">
+        #{attribuate3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective"
+          parameterType="com.entity.warning.WarningUserShop">
+    update warning_user_shop
+    <set>
+      <if test="warningHeaderId != null">
+        warning_header_id = #{warningHeaderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null">
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attribuate1 != null">
+        attribuate1 = #{attribuate1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate2 != null">
+        attribuate2 = #{attribuate2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate3 != null">
+        attribuate3 = #{attribuate3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!-- by hsl -->
+  <select id="findUserShopByWarningHeaderIdAndUserId"
+          parameterType="com.dto.warning.WarningUserDTO"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from warning_user_shop
+    where 1=1
+    <if test="warningHeaderId != null and warningHeaderId != 0">
+        AND warning_header_id = #{warningHeaderId,jdbcType=INTEGER}
+    </if>
+    <if test="userId != null and userId != 0">
+        and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+
+</mapper>

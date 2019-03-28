@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.warning.WarningGroupMapper">
+    <resultMap id="BaseResultMap" type="com.entity.warning.WarningGroup">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="warning_header_id" jdbcType="INTEGER" property="warningHeaderId"/>
+        <result column="detail_code" jdbcType="VARCHAR" property="detailCode"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
+        <result column="del_time" jdbcType="TIMESTAMP" property="delTime"/>
+        <result column="time_consuming" jdbcType="VARCHAR" property="timeConsuming"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="attribuate1" jdbcType="VARCHAR" property="attribuate1"/>
+        <result column="attribuate2" jdbcType="VARCHAR" property="attribuate2"/>
+        <result column="attribuate3" jdbcType="VARCHAR" property="attribuate3"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, warning_header_id, detail_code, status, num, create_time, send_time, del_time, 
+    time_consuming, version, attribuate1, attribuate2, attribuate3
+  </sql>
+
+    <select id="selectByPrimaryKey"
+            parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warning_group
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findWarningGroupById"
+            parameterType="java.lang.Integer"
+            resultType="java.lang.String">
+        SELECT h.code
+        from warning_detail wd,
+            warning_group wg,
+              warning_header h
+        where wd.group_id = wg.id AND h.id = wg.warning_header_id
+        and wd.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey"
+            parameterType="java.lang.Integer">
+    delete from warning_group
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+    <insert id="insertSelective"
+            keyProperty="id"
+            useGeneratedKeys="true"
+            parameterType="com.entity.warning.WarningGroup">
+        insert into warning_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="warningHeaderId != null">
+                warning_header_id,
+            </if>
+            <if test="detailCode != null">
+                detail_code,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="sendTime != null">
+                send_time,
+            </if>
+            <if test="delTime != null">
+                del_time,
+            </if>
+            <if test="timeConsuming != null">
+                time_consuming,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="attribuate1 != null">
+                attribuate1,
+            </if>
+            <if test="attribuate2 != null">
+                attribuate2,
+            </if>
+            <if test="attribuate3 != null">
+                attribuate3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="warningHeaderId != null">
+                #{warningHeaderId,jdbcType=INTEGER},
+            </if>
+            <if test="detailCode != null">
+                #{detailCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delTime != null">
+                #{delTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeConsuming != null">
+                #{timeConsuming,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+            <if test="attribuate1 != null">
+                #{attribuate1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate2 != null">
+                #{attribuate2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate3 != null">
+                #{attribuate3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.entity.warning.WarningGroup">
+        update warning_group
+        <set>
+            <if test="warningHeaderId != null">
+                warning_header_id = #{warningHeaderId,jdbcType=INTEGER},
+            </if>
+            <if test="detailCode != null">
+                detail_code = #{detailCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sendTime != null">
+                send_time = #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delTime != null">
+                del_time = #{delTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeConsuming != null">
+                time_consuming = #{timeConsuming,jdbcType=VARCHAR},
+            </if>
+            version = version + 1 ,
+            <if test="attribuate1 != null">
+                attribuate1 = #{attribuate1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate2 != null">
+                attribuate2 = #{attribuate2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate3 != null">
+                attribuate3 = #{attribuate3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getGroupIdsByHeaderId"
+            parameterType="java.lang.Integer"
+            resultType="java.lang.Integer">
+      SELECT id FROM warning_group WHERE warning_header_id = #{headerId,jdbcType=INTEGER} AND  status = 1
+  </select>
+
+    <select id="queryListByParmes"
+            resultType="com.dto.warning.WarningGroupDTO"
+            parameterType="com.pojo.WarningGroupPojo">
+        SELECT
+        h.id AS headId,
+        h.code AS code ,
+        h.name as name ,
+        h.users AS users,
+        h.program_file_name As programFileName,
+        h.program_file_url As programFileUrl,
+        h.program_file_key As programFileKey,
+        h.program As program,
+        g.id AS groupId,
+        g.detail_code AS groupCode,
+        g.status AS status ,
+        IF(g.status=1,'已处理','未处理') statusName,
+        DATE_FORMAT(g.send_time , '%Y-%m-%d %H:%i:%S') AS sendTime,
+        g.num AS num,
+        DATE_FORMAT(g.del_time, '%Y-%m-%d %H:%i:%S' ) AS delTime,
+        g.time_consuming AS timeCon
+        FROM warning_group g INNER JOIN warning_header h ON g.warning_header_id = h.id
+        WHERE 1 = 1
+        <if test="warningGroupPojo.groupCode != null and warningGroupPojo.groupCode != '' ">
+            AND g.detail_code LIKE concat('%',#{warningGroupPojo.groupCode,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="warningGroupPojo.code != null and warningGroupPojo.code != '' ">
+            and (h.code like concat('%',#{warningGroupPojo.code,jdbcType=VARCHAR},'%')
+            or h.name like concat('%',#{warningGroupPojo.code,jdbcType=VARCHAR},'%'))
+        </if>
+        <if test="warningGroupPojo.userName != null and warningGroupPojo.userName != '' ">
+            AND h.users LIKE concat('%',#{warningGroupPojo.userName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="warningGroupPojo.status != 0 ">
+            AND g.status = #{warningGroupPojo.status}
+        </if>
+        <if test="warningGroupPojo.startTime != null and warningGroupPojo.startTime != ''">
+            AND g.send_time <![CDATA[ >= ]]> #{warningGroupPojo.startTime}
+        </if>
+        <if test="warningGroupPojo.endTime != null and warningGroupPojo.endTime != '' ">
+            AND g.send_time <![CDATA[ <= ]]> #{warningGroupPojo.endTime}
+        </if>
+        <if test="warningGroupPojo.groupId != null ">
+            AND g.id = #{warningGroupPojo.groupId}
+        </if>
+        ORDER BY g.id DESC
+        LIMIT #{pageOffset},#{pageSize}
+    </select>
+
+    <select id="queryCount"
+            parameterType="com.pojo.WarningGroupPojo"
+            resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM warning_group g INNER JOIN warning_header h ON g.warning_header_id = h.id
+        WHERE 1 = 1
+        <if test="warningGroupPojo.groupCode != null and warningGroupPojo.groupCode != '' ">
+            AND g.detail_code LIKE concat('%',#{warningGroupPojo.groupCode,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="warningGroupPojo.code != null and warningGroupPojo.code != '' ">
+            and (h.code like concat('%',#{warningGroupPojo.code,jdbcType=VARCHAR},'%')
+            or h.name like concat('%',#{warningGroupPojo.code,jdbcType=VARCHAR},'%'))
+        </if>
+        <if test="warningGroupPojo.userName != null and warningGroupPojo.userName != '' ">
+            AND h.users LIKE concat('%',#{warningGroupPojo.userName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="warningGroupPojo.status != 0 ">
+            AND g.status = #{warningGroupPojo.status}
+        </if>
+        <if test="warningGroupPojo.startTime != null and warningGroupPojo.startTime != ''">
+            AND g.send_time <![CDATA[ >= ]]> #{warningGroupPojo.startTime}
+        </if>
+        <if test="warningGroupPojo.endTime != null and warningGroupPojo.endTime != '' ">
+            AND g.send_time <![CDATA[ <= ]]> #{warningGroupPojo.endTime}
+        </if>
+        <if test="warningGroupPojo.groupId != null ">
+            AND g.id = #{warningGroupPojo.groupId}
+        </if>
+    </select>
+
+
+    <select id="getWarningGroupByHeaderIdAndStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+        SELECT * FROM warning_group WHERE warning_header_id = #{headerId} and status = #{status} limit 1;
+
+    </select>
+
+
+    <select id="getWarngroupListByHeaderId"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * FROM warning_group WHERE warning_header_id = #{headerId}
+    </select>
+
+
+    <select id="getWarngroupReport" parameterType="java.lang.Integer" resultType="com.dto.warning.WarningGroupReportDTO">
+          SELECT a.undoNum, b.isdoNum, (b.isdoNum +a.undoNum) totalNum  FROM
+            (SELECT COUNT(*) AS undoNum FROM warning_group
+                WHERE `status` = 2 AND warning_header_id = #{headerId} ) a,
+            (SELECT COUNT(*) AS isdoNum FROM warning_group
+                WHERE `status` = 1 AND warning_header_id = #{headerId} ) b
+    </select>
+
+
+</mapper>

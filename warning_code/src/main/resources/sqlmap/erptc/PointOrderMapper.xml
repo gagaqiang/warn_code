@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erptc.PointHeaderMapper">
+
+
+    <select id="listPointOrderByCreateDate" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM  point_order_header where
+         <![CDATA[
+        create_date>=#{stateDate} and create_date<=#{endDate}
+          ]]>
+    </select>
+
+    <select id="getCountByMonth" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM  point_order_header where 1=1
+         <![CDATA[
+        AND date_format( create_date, '%Y-%m' ) = #{monthParme}
+          ]]>
+    </select>
+
+</mapper>

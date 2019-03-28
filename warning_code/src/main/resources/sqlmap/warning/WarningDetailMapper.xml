@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.warning.WarningDetailMapper">
+    <resultMap id="BaseResultMap" type="com.entity.warning.WarningDetail">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="group_id" jdbcType="INTEGER" property="groupId"/>
+        <result column="platfrom_code" jdbcType="VARCHAR" property="platfromCode"/>
+        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
+        <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>
+        <result column="touch_time" jdbcType="TIMESTAMP" property="touchTime"/>
+        <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
+        <result column="del_time" jdbcType="TIMESTAMP" property="delTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="time_consuming" jdbcType="VARCHAR" property="timeConsuming"/>
+        <result column="mins" jdbcType="INTEGER" property="mins"/>
+        <result column="is_close" jdbcType="INTEGER" property="isClose"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="attribuate1" jdbcType="VARCHAR" property="attribuate1"/>
+        <result column="attribuate2" jdbcType="VARCHAR" property="attribuate2"/>
+        <result column="attribuate3" jdbcType="VARCHAR" property="attribuate3"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, group_id, platfrom_code, shop_name, touch_time, send_time, del_time, status, 
+    time_consuming, mins, is_close, create_time, attribuate1, attribuate2, attribuate3, 
+    version
+  </sql>
+
+    <select id="selectByPrimaryKey"
+            parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warning_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey"
+            parameterType="java.lang.Integer">
+    delete from warning_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertSelective"
+            keyProperty="id"
+            useGeneratedKeys="true"
+            parameterType="com.entity.warning.WarningDetail">
+        insert into warning_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="platfromCode != null">
+                platfrom_code,
+            </if>
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="shopName != null">
+                shop_name,
+            </if>
+            <if test="touchTime != null">
+                touch_time,
+            </if>
+            <if test="sendTime != null">
+                send_time,
+            </if>
+            <if test="delTime != null">
+                del_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="timeConsuming != null">
+                time_consuming,
+            </if>
+            <if test="mins != null">
+                mins,
+            </if>
+            <if test="isClose != null">
+                is_close,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="attribuate1 != null">
+                attribuate1,
+            </if>
+            <if test="attribuate2 != null">
+                attribuate2,
+            </if>
+            <if test="attribuate3 != null">
+                attribuate3,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=INTEGER},
+            </if>
+            <if test="platfromCode != null">
+                #{platfromCode,jdbcType=VARCHAR},
+            </if>
+            <if test="shopId != null">
+                #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="shopName != null">
+                #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="touchTime != null">
+                #{touchTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delTime != null">
+                #{delTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="timeConsuming != null">
+                #{timeConsuming,jdbcType=VARCHAR},
+            </if>
+            <if test="mins != null">
+                #{mins,jdbcType=INTEGER},
+            </if>
+            <if test="isClose != null">
+                #{isClose,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="attribuate1 != null">
+                #{attribuate1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate2 != null">
+                #{attribuate2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate3 != null">
+                #{attribuate3,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.entity.warning.WarningDetail">
+        update warning_detail
+        <set>
+            <if test="groupId != null">
+                group_id = #{groupId,jdbcType=INTEGER},
+            </if>
+            <if test="platfromCode != null">
+                platfrom_code = #{platfromCode,jdbcType=VARCHAR},
+            </if>
+            <if test="shopId != null">
+                shop_id = #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="shopName != null">
+                shop_name = #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="touchTime != null">
+                touch_time = #{touchTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sendTime != null">
+                send_time = #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delTime != null">
+                del_time = #{delTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="timeConsuming != null">
+                time_consuming = #{timeConsuming,jdbcType=VARCHAR},
+            </if>
+            <if test="mins != null">
+                mins = #{mins,jdbcType=INTEGER},
+            </if>
+            <if test="isClose != null">
+                is_close = #{isClose,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            version = version + 1 ,
+            <if test="attribuate1 != null">
+                attribuate1 = #{attribuate1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate2 != null">
+                attribuate2 = #{attribuate2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate3 != null">
+                attribuate3 = #{attribuate3,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getMinsCountByGroupIds"
+            resultType="java.lang.Integer">
+        SELECT SUM(mins) FROM warning_detail
+        WHERE 1=1
+        AND group_id in
+        <foreach collection="groupIds" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getNumByGroupId"
+            resultType="com.dto.warning.WarningGroupDTO"
+            parameterType="java.lang.Integer">
+    SELECT
+      (SELECT count(1)  from warning_detail where status = 2 and is_close = 1 and group_id = #{groupId}) as nuDealNum,
+      (SELECT count(1)  from warning_detail where status = 1 and is_close = 2 and group_id = #{groupId}) as dealNum,
+      (SELECT count(1)  from warning_detail where group_id = #{groupId}) as allNum
+  </select>
+
+    <!--  CONCAT(time_consuming,'时',mins ,'分') time, -->
+
+    <select id="findWarningDetailPagination"
+            parameterType="map"
+            resultType="com.dto.warning.WarningDetailDTO">
+        SELECT
+        id id ,
+        group_id groupId,
+        platfrom_code platfromCode,
+        shop_id shopId,
+        shop_name shopName,
+        DATE_FORMAT(touch_time, '%Y-%m-%d %H:%i:%S' ) AS touchTime,
+        DATE_FORMAT(send_time, '%Y-%m-%d %H:%i:%S' ) AS sendTime,
+        DATE_FORMAT(del_time, '%Y-%m-%d %H:%i:%S' ) AS delTime,
+        DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%S' ) AS createTime,
+        STATUS status,
+        IFNULL(CONCAT(mins,'分钟'),mins)  time,
+        time_consuming timeConsuming,
+        mins mins,
+        IF(STATUS=1,'已处理','未处理') statusMean,
+        IF(is_close=1,'未关闭','已关闭') isCloseMean,
+        is_close isClose,
+        attribuate1 attribuate1
+        FROM
+        warning_detail
+        where 1=1
+        <if test="dto.groupId !=null ">
+            and group_id = #{dto.groupId,jdbcType=INTEGER}
+        </if>
+        ORDER BY STATUS DESC,create_time ASC
+        limit #{startNum} ,#{pageSize}
+    </select>
+
+    <select id="findWarningDetailCount"
+            parameterType="com.dto.warning.WarningDetailDTO"
+            resultType="java.lang.Integer">
+        SELECT count(1) FROM
+        warning_detail
+        where 1=1
+        <if test="groupId !=null ">
+            and group_id = #{groupId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getWarningDetailDto" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        SELECT * FROM
+        warning_detail
+        where 1=1
+        <if test="groupId !=null and groupId != 0 ">
+            and group_id = #{groupId,jdbcType=INTEGER}
+        </if>
+        <if test="status !=null and status != 0  ">
+            and status = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="platfromCode !=null ">
+            and platfrom_code = #{platfromCode,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+
+
+    <select id="getSumMinsById" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT ROUND(IFNULL(SUM(mins),0)/COUNT(*))  FROM warning_detail WHERE group_id =#{groupId,jdbcType=INTEGER} AND  status = 1
+    </select>
+
+    <update id="updateSendTimeByGroupId" parameterType="java.lang.Integer">
+        UPDATE warning_detail SET send_time = SYSDATE(),version = version + 1
+        WHERE `status` = 2 AND send_time IS NULL  AND group_id =#{groupId};
+    </update>
+
+    <select id="getSumOrderNumByStatusAndClosed" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT IFNULL(COUNT(*),0) FROM warning_detail WHERE status = #{status} AND is_close =#{isClose}  AND group_id =#{groupId};
+    </select>
+
+    <select id="getCountDetailByGroupids"
+            resultType="java.lang.Integer">
+        SELECT IFNULL(COUNT(*),0) FROM warning_detail
+        WHERE 1=1
+        AND group_id in
+        <foreach collection="groupIds" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        and status = #{status} AND is_close =#{isClose}
+    </select>
+
+
+
+    <select id="getWarningReportStatistics" resultType="com.dto.warning.WarningReportStatisticsDto" parameterType="com.pojo.WarningReportStatisticsPojo" >
+        SELECT a.*, b.*,c.*, d.*, e.* FROM
+        (SELECT COUNT(*) yesAllWarnNum from warning_group gr
+        INNER JOIN warning_header he ON gr.warning_header_id = he.id
+        WHERE 1=1
+        <![CDATA[
+            AND DATE_FORMAT(gr.create_time,'%Y-%m-%d') = #{dateTime}
+        ]]>
+        <if test="type != 0">
+            AND he.type = #{type}
+        </if>
+        ) a,
+        (SELECT COUNT(de.id) yesOrderNum, COUNT(DISTINCT(gr.id)) yesUndoWarnNum FROM warning_detail de
+        INNER JOIN warning_group gr ON de.group_id = gr.id
+        INNER JOIN warning_header he ON gr.warning_header_id = he.id
+        WHERE 1=1
+        <![CDATA[
+            AND DATE_FORMAT(gr.create_time,'%Y-%m-%d') = #{dateTime}
+        ]]>
+        AND de.`status` = 2
+        <if test="type != 0">
+            AND he.type = #{type}
+        </if>
+        ) b,
+        (
+        SELECT COUNT(*) undoWarnNum from warning_group gr
+        INNER JOIN warning_header he ON gr.warning_header_id = he.id
+        WHERE 1=1
+        <![CDATA[
+            AND DATE_FORMAT(gr.create_time,'%Y-%m-%d') <= #{dateTime}
+        ]]>
+        AND gr.status = 2
+        <if test="type != 0">
+            AND he.type = #{type}
+        </if>
+        ) c,
+        (SELECT COUNT(*) allWarnNum from warning_group gr
+        INNER JOIN warning_header he ON gr.warning_header_id = he.id
+        WHERE 1=1
+        <![CDATA[
+            AND DATE_FORMAT(gr.create_time,'%Y-%m-%d') <= #{dateTime}
+        ]]>
+        <if test="type != 0">
+            AND he.type = #{type}
+        </if>
+        ) d,
+        (SELECT count(1) undoAllOrders  from warning_detail de
+        INNER JOIN warning_group gr ON de.group_id = gr.id
+        INNER JOIN warning_header he ON gr.warning_header_id = he.id
+        where de.status = 2  and de.is_close = 1
+        <![CDATA[
+            AND DATE_FORMAT(de.create_time,'%Y-%m-%d') <= #{dateTime}
+        ]]>
+        <if test="type != 0">
+            AND he.type = #{type}
+        </if>
+        ) e
+    </select>
+
+
+    <select id="getTcInWarningMsg" parameterType="java.lang.String" resultType="com.entity.erptc.ErrorMsg">
+        SELECT de.platfrom_code as platformCode FROM warning_detail de
+        INNER JOIN warning_group gr ON de.group_id = gr.id
+        INNER JOIN warning_header he ON gr.warning_header_id = he.id
+        WHERE he.code = #{warnCode} AND gr.`status` = 2 AND de.`status` = 2;
+    </select>
+
+
+    <select id="getUnDoTcInWarningMsg" resultType="com.entity.erptc.ErrorMsg">
+        SELECT de.platfrom_code as platformCode FROM warning_detail de
+        INNER JOIN warning_group gr ON de.group_id = gr.id
+        INNER JOIN warning_header he ON gr.warning_header_id = he.id
+        WHERE he.code = #{warnCode} AND gr.`status` = 2 AND de.`status` = 2
+        and de.platfrom_code NOT IN
+        <foreach collection="codeList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getDetailIdByDetailCodeAndPlatfromCode"
+            resultType="com.dto.warning.WarningDetailDTO">
+        SELECT wd.id from warning_detail wd,warning_group wg
+        where wd.group_id = wg.id
+        and wg.detail_code= #{detailCode}
+        and wd.platfrom_code = #{platfromCode}
+    </select>
+
+    <select id="selectById"
+            parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warning_detail
+        where id = #{id,jdbcType=INTEGER} AND status = 2 AND is_close = 1;
+    </select>
+
+    <!--查询是否有数据-->
+    <select id="getDetailIdByPlatfromCodeAndCode"
+            resultType="java.lang.Integer">
+        SELECT count(1) from
+        warning_group wg,
+        warning_detail wd,
+        warning_header wh
+        where wg.id= wd.group_id
+        AND wh.id = wg.warning_header_id
+        AND wh.`code` = #{code}
+        and wd.platfrom_code = #{platfromCode}
+    </select>
+
+
+
+
+</mapper>

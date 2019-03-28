@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.warning.WarningUserMapper">
+  <resultMap id="BaseResultMap" type="com.entity.warning.WarningUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="warning_header_id" jdbcType="INTEGER" property="warningHeaderId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="job_number" jdbcType="VARCHAR" property="jobNumber" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+    <result column="isdel" jdbcType="BIT" property="isdel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="attribuate1" jdbcType="VARCHAR" property="attribuate1" />
+    <result column="attribuate2" jdbcType="VARCHAR" property="attribuate2" />
+    <result column="attribuate3" jdbcType="VARCHAR" property="attribuate3" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, warning_header_id, name, job_number, user_id, phone_number, wechat, isdel, create_time, 
+    last_time, version, attribuate1, attribuate2, attribuate3
+  </sql>
+
+  <select id="selectByPrimaryKey"
+          parameterType="java.lang.Integer"
+          resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warning_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey"
+          parameterType="java.lang.Integer">
+    delete from warning_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective"
+          keyProperty="id"
+          useGeneratedKeys="true"
+          parameterType="com.entity.warning.WarningUser">
+    insert into warning_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="warningHeaderId != null">
+        warning_header_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="jobNumber != null">
+        job_number,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="wechat != null">
+        wechat,
+      </if>
+      <if test="isdel != null">
+        isdel,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastTime != null">
+        last_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="attribuate1 != null">
+        attribuate1,
+      </if>
+      <if test="attribuate2 != null">
+        attribuate2,
+      </if>
+      <if test="attribuate3 != null">
+        attribuate3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="warningHeaderId != null">
+        #{warningHeaderId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="jobNumber != null">
+        #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="attribuate1 != null">
+        #{attribuate1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate2 != null">
+        #{attribuate2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate3 != null">
+        #{attribuate3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective"
+          parameterType="com.entity.warning.WarningUser">
+    update warning_user
+    <set>
+      <if test="warningHeaderId != null">
+        warning_header_id = #{warningHeaderId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="jobNumber != null">
+        job_number = #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        isdel = #{isdel,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null">
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+
+      version = version + 1 ,
+
+      <if test="attribuate1 != null">
+        attribuate1 = #{attribuate1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate2 != null">
+        attribuate2 = #{attribuate2,jdbcType=VARCHAR},
+      </if>
+      <if test="attribuate3 != null">
+        attribuate3 = #{attribuate3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findWarningLinePagination"
+          parameterType="map"
+          resultType="com.dto.warning.WarningUserDTO">
+    SELECT
+      wu.id userId,
+      wu.warning_header_id warningHeaderId,
+      wu. NAME userName,
+      wu.job_number jobNumber,
+      wu.user_id wechatUserId,
+      wu.phone_number phoneNumber,
+      wu.wechat wechat,
+      wu.isdel isdel,
+      wu.create_time createTime,
+      wus.id id,
+      wus.shop_id shopId,
+      wus.shop_name shopName
+    FROM
+      warning_user wu
+    LEFT JOIN warning_user_shop wus ON (
+      wus.warning_header_id = wu.warning_header_id
+    AND wus.user_id = wu.id
+      )
+    WHERE
+    wu.isdel = 0
+      <if test="dto.warningHeaderId !=null ">
+        and wu.warning_header_id = #{dto.warningHeaderId,jdbcType=INTEGER}
+      </if>
+    ORDER BY id DESC
+      limit #{startNum} ,#{pageSize}
+    </select>
+
+
+  <select id="findWarningLineCount"
+          parameterType="com.dto.warning.WarningUserDTO"
+          resultType="java.lang.Integer">
+    SELECT count(1) FROM
+    warning_user wu
+    LEFT JOIN warning_user_shop wus ON (wus.warning_header_id = wu.warning_header_id
+    AND wus.user_id = wu.id)
+    WHERE
+    wu.isdel = 0
+    <if test="warningHeaderId !=null ">
+      and wu.warning_header_id = #{warningHeaderId,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="findWarningUserList"
+          parameterType="com.dto.warning.WarningUserDTO"
+          resultType="com.dto.warning.WarningUserDTO">
+    SELECT
+    wu.id userId,
+    wu.warning_header_id warningHeaderId,
+    wu. NAME userName,
+    wu.job_number jobNumber,
+    wu.user_id wechatUserId,
+    wu.phone_number phoneNumber,
+    wu.wechat wechat,
+    wu.isdel isdel
+    FROM
+    warning_user wu
+    WHERE 1=1
+    <if test="warningHeaderId !=null ">
+      and wu.warning_header_id = #{warningHeaderId,jdbcType=INTEGER}
+    </if>
+  </select>
+
+
+  <select id="getWarningUserByWarnHeaderId" parameterType="java.lang.Integer"
+          resultMap="BaseResultMap">
+      SELECT * FROM
+      warning_user WHERE warning_header_id = #{headerId}
+
+  </select>
+
+  <select id="getUserIdsByHeaderId" resultType="java.lang.String"  parameterType="java.lang.Integer">
+    SELECT DISTINCT(wu.user_id) FROM warning_user_shop us, warning_user wu
+    WHERE us.user_id = wu.id AND wu.warning_header_id = #{headerId};
+  </select>
+
+</mapper>

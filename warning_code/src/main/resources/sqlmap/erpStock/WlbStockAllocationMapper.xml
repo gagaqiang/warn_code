@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erpStock.WlbStockAllocationMapper">
+  <resultMap id="BaseResultMap" type="com.entity.erpStock.WlbStockAllocation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_type_id" jdbcType="BIGINT" property="orderTypeId" />
+    <result column="allocation_order_code" jdbcType="VARCHAR" property="allocationOrderCode" />
+    <result column="allocation_order_source_code" jdbcType="VARCHAR" property="allocationOrderSourceCode" />
+    <result column="out_order_status" jdbcType="VARCHAR" property="outOrderStatus" />
+    <result column="out_order_code" jdbcType="VARCHAR" property="outOrderCode" />
+    <result column="out_order_source_code" jdbcType="VARCHAR" property="outOrderSourceCode" />
+    <result column="out_store_code" jdbcType="VARCHAR" property="outStoreCode" />
+    <result column="out_warehouse_id" jdbcType="BIGINT" property="outWarehouseId" />
+    <result column="out_warehouse_code" jdbcType="VARCHAR" property="outWarehouseCode" />
+    <result column="out_store_name" jdbcType="VARCHAR" property="outStoreName" />
+    <result column="out_quantity" jdbcType="INTEGER" property="outQuantity" />
+    <result column="out_real_time" jdbcType="TIMESTAMP" property="outRealTime" />
+    <result column="in_order_status" jdbcType="VARCHAR" property="inOrderStatus" />
+    <result column="in_order_code" jdbcType="VARCHAR" property="inOrderCode" />
+    <result column="in_order_source_code" jdbcType="VARCHAR" property="inOrderSourceCode" />
+    <result column="in_store_code" jdbcType="VARCHAR" property="inStoreCode" />
+    <result column="in_warehouse_id" jdbcType="BIGINT" property="inWarehouseId" />
+    <result column="in_warehouse_code" jdbcType="VARCHAR" property="inWarehouseCode" />
+    <result column="in_store_name" jdbcType="VARCHAR" property="inStoreName" />
+    <result column="in_quantity" jdbcType="INTEGER" property="inQuantity" />
+    <result column="in_real_time" jdbcType="TIMESTAMP" property="inRealTime" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="approve" jdbcType="BIT" property="approve" />
+    <result column="check_name" jdbcType="VARCHAR" property="checkName" />
+    <result column="check_date" jdbcType="TIMESTAMP" property="checkDate" />
+    <result column="cancel" jdbcType="BIT" property="cancel" />
+    <result column="cancel_name" jdbcType="VARCHAR" property="cancelName" />
+    <result column="cancel_date" jdbcType="TIMESTAMP" property="cancelDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_error" jdbcType="INTEGER" property="isError" />
+    <result column="error_message" jdbcType="VARCHAR" property="errorMessage" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_nick" jdbcType="VARCHAR" property="userNick" />
+    <result column="buyer_nick" jdbcType="VARCHAR" property="buyerNick" />
+    <result column="order_sub_type" jdbcType="VARCHAR" property="orderSubType" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+    <result column="is_sendIMS" jdbcType="BIT" property="isSendims" />
+    <result column="ims_push_sign" jdbcType="INTEGER" property="imsPushSign" />
+    <result column="ims_push_msg" jdbcType="VARCHAR" property="imsPushMsg" />
+    <result column="ims_push_time" jdbcType="TIMESTAMP" property="imsPushTime" />
+    <result column="pcode" jdbcType="VARCHAR" property="pcode" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="ims_db_code" jdbcType="VARCHAR" property="imsDbCode" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.entity.erpStock.WlbStockAllocationWithBLOBs">
+    <result column="ims_request_str" jdbcType="LONGVARCHAR" property="imsRequestStr" />
+    <result column="ims_response_str" jdbcType="LONGVARCHAR" property="imsResponseStr" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_type_id, allocation_order_code, allocation_order_source_code, out_order_status, 
+    out_order_code, out_order_source_code, out_store_code, out_warehouse_id, out_warehouse_code, 
+    out_store_name, out_quantity, out_real_time, in_order_status, in_order_code, in_order_source_code, 
+    in_store_code, in_warehouse_id, in_warehouse_code, in_store_name, in_quantity, in_real_time, 
+    create_name, approve, check_name, check_date, cancel, cancel_name, cancel_date, remark, 
+    is_error, error_message, create_time, created, modified, tenant_id, code, user_id, 
+    user_nick, buyer_nick, order_sub_type, order_type, is_sendIMS, ims_push_sign, ims_push_msg, 
+    ims_push_time, pcode, pid, ims_db_code
+  </sql>
+  <sql id="Blob_Column_List">
+    ims_request_str, ims_response_str
+  </sql>
+
+  <select id="select"
+          resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from wlb_stock_allocation
+    where  order_sub_type = 'ALLOCATION'
+    and out_warehouse_code != in_warehouse_code
+    and approve = 1
+    and cancel = 0
+    and is_sendIMS = 0
+    and out_warehouse_code in (SELECT DISTINCT wl.warehouse_big_code from erp_base.warehouse_relation wl )
+    and in_warehouse_code in (SELECT  DISTINCT wl.warehouse_big_code from erp_base.warehouse_relation wl )
+    <![CDATA[
+    and created >= #{startDate}    and created <= SYSDATE()
+     ]]>
+    ORDER BY created desc
+  </select>
+
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scanPeriod="1 minutes">
+    <property name="log.moduleName" value="warning_code" />
+    <!--<property name="logFile" value="/mnt/warn/logs" />-->
+    <property name="logFile" value="/tchome/log/tcwarning" />
+
+    <appender name="ErrorFile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logFile}/${log.moduleName}-logger.log</file>
+        <Append>true</Append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logFile}/%d{yyyy-MM-dd}/${log.moduleName}-error.log
+            </fileNamePattern>
+            <maxHistory>50</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] %5p |-%C:%L - %m %n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} [%t] %5p |-%C:%L - %m %n</Pattern>
+        </layout>
+    </appender>
+
+
+
+    <root level="INFO">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="ErrorFile" />
+    </root>
+</configuration>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erpsystem.SysAreaDao">
+    <resultMap id="ResultMap" type="SysArea">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="version" column="version"/>
+        <result property="del" column="del"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="zip" column="zip"/>
+        <result property="pid" column="pid"/>
+    </resultMap>
+
+    <select id="getEntity" resultMap="ResultMap">
+		select * from sys_area where id = #{id} and del=0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erptc.TradeInvoiceMapper">
+    <resultMap id="ResultMap" type="TradeInvoiceHeader">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="platfromCode" column="platform_code"/>
+        <result property="imsInvoicePushSign" column="ims_invoice_push_sign"/>
+        <result property="imsInvoicePushMsg" column="ims_invoice_push_msg"/>
+        <result property="imsInvoicePushTime" column="ims_invoice_push_time"/>
+    </resultMap>
+
+    <select id="listByImsInvoicePushSign" resultMap="ResultMap">
+        select i.id, i.create_date, h.shop_id, h.platform_code, i.ims_invoice_push_sign, i.ims_invoice_push_msg, i.ims_invoice_push_time
+        from trade_order_invoice i inner join trade_order_header h on i.pid=h.id
+        where i.tenant_id=72157623227191517 and i.ims_invoice_push_sign in
+        <foreach collection="imsInvoicePushSign" index="index" item="sign" open="(" close=")" separator=",">
+            #{sign}
+        </foreach>
+        <![CDATA[
+        and i.ims_invoice_push_time <= #{startDate} AND i.ims_invoice_push_time >= '2018-09-25 00:00:00'
+         ]]>
+    </select>
+
+    <select id="listByInvoiceStatus" resultMap="ResultMap">
+        select i.id, i.create_date, h.shop_id, h.platform_code, i.ims_invoice_push_sign, i.ims_invoice_push_msg, i.ims_invoice_push_time
+        from trade_order_invoice i inner join trade_order_header h on i.pid=h.id
+        where i.tenant_id=72157623227191517 and i.invoice_status=2 and i.state=1
+        <![CDATA[
+        and i.invoice_apply_time <= #{startDate} AND i.invoice_apply_time >= DATE_SUB(CURDATE(), INTERVAL 60 DAY) AND i.type in (7430881,7430882)
+         ]]>
+    </select>
+
+    <select id="listHasSignNoPushImsForPaper" resultMap="ResultMap">
+        select i.id, i.create_date, h.shop_id, h.platform_code, i.ims_invoice_push_sign, i.ims_invoice_push_msg, i.ims_invoice_push_time
+        from trade_order_invoice i inner join trade_order_header h on i.pid=h.id and h.ims_signingTime_push_sign=4
+        <![CDATA[
+        and h.modify_date <= #{startDate} AND h.modify_date >= '2018-09-25 00:00:00'
+          ]]>
+        where i.tenant_id=72157623227191517 and i.invoice_status=0 and i.is_invoice=0 and i.type in (51653,123456,407896) AND i.bill_amount>0
+    </select>
+
+    <select id="listHasSignNoPushImsForElectronic" resultMap="ResultMap">
+        select i.id, i.create_date, h.shop_id, h.platform_code, i.ims_invoice_push_sign, i.ims_invoice_push_msg, i.ims_invoice_push_time
+        from trade_order_invoice i inner join trade_order_header h on i.pid=h.id and h.ims_signingTime_push_sign=4
+        <![CDATA[
+        and h.modify_date <= #{startDate} AND h.modify_date >= '2018-09-25 00:00:00'
+          ]]>
+        where i.tenant_id=72157623227191517 and i.invoice_status=0 and i.type in (7430881,7430882) AND i.bill_amount>0
+    </select>
+
+    <select id="listNoCreateInvoiceOrder" resultMap="ResultMap">
+        SELECT h.platform_code,h.shop_id FROM trade_order_invoice i inner join trade_order_header h on i.pid=h.id
+        AND h.ims_order_push_sign > 1
+        AND h.platform_status!='TRADE_CLOSED'
+        <![CDATA[
+        and h.ims_order_push_time <= #{startDate} AND h.ims_order_push_time >= '2018-09-25 00:00:00'
+         ]]>
+        WHERE i.type in (7430881,7430882) and i.amount>0 AND i.bill_amount=0 AND i.state=1
+    </select>
+
+    <select id="listNoCreateOrderNumber" resultMap="ResultMap">
+        SELECT
+	trade.shop_id, trade.platform_code
+FROM
+	erp_tc.trade_order_invoice invoice
+INNER JOIN erp_tc.trade_order_status statu ON invoice.pid = statu.id
+INNER JOIN erp_tc.trade_order_header trade ON invoice.pid = trade.id
+INNER JOIN erp_system.sys_order_type sot ON sot.id = trade.order_type_id
+WHERE
+	ifnull(invoice.bill_amount, 0) = 0
+AND ifnull(invoice.amount, 0) = 0
+AND ifnull(statu.cancel, 0) = 0
+AND ifnull(
+	invoice.ims_invoice_push_sign,
+	0
+) = 0
+AND ifnull(
+	trade.ims_order_push_sign,
+	0
+) >= 4
+AND ifnull(invoice.is_temporary, 0) = 0
+AND (
+	sot. CODE = 'Return'
+	OR sot. CODE = 'Sales'
+)
+AND (
+	(
+		statu.delivery_state = 2
+		AND ifnull(
+			trade.erp_create_invoice_sign,
+			0
+		) = 1
+	)
+	OR (
+		statu.delivery_state = 1
+		AND (
+			ifnull(
+				trade.erp_create_invoice_sign,
+				0
+			) = 0
+			OR trade.erp_create_invoice_sign = 1
+		)
+	)
+)
+AND invoice.create_date>='2018-10-15 00:00:00'
+         <![CDATA[
+        AND invoice.modify_date<=#{startDate}
+        ]]>
+    </select>
+</mapper>

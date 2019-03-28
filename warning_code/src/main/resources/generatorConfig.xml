@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!--自己生成mybatis 实体类、DAO接口及sqlmap 配置文件-->
+
+    <!-- !!!! Driver Class Path !!!! -->
+    <classPathEntry location="D:\aux-wangpi\wangpi\Maven\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- !!!! Database Configurations !!!! -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rds3ewcrlon6stkq0739.mysql.rds.aliyuncs.com:3306/erp_stock?useUnicode=true"
+                        userId="omsr1"
+                        password="omsR160111"/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 数据表对应的model层  -->
+        <javaModelGenerator targetPackage="com.entity.erpStock" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- sql mapper 映射配置文件 -->
+        <sqlMapGenerator targetPackage="resources.sqlmap.erpStock" targetProject="src/main">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- mybatis3中的mapper接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.dao.erpStock" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名; domainObjectName:对应的DO -->
+        <table schema="tc_warning" tableName="wlb_stock_allocation" domainObjectName="WlbStockAllocation"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+        <!--<table schema="early-warning" tableName="warning_detail" domainObjectName="WarningDetail"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="early-warning" tableName="warning_group" domainObjectName="WarningGroup"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="early-warning" tableName="warning_header" domainObjectName="WarningHeader"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="early-warning" tableName="warning_job_date_log" domainObjectName="WarningJobDateLog"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="early-warning" tableName="warning_send_message_log" domainObjectName="WarningSendMessageLog"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="erp_stock" tableName="wlb_stock_allocation" domainObjectName="WlbStockAllocation"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erpreport.AlipayAccountOrderMapper">
+  <resultMap id="BaseResultMap" type="com.entity.erpreport.AlipayAccountOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="balance" jdbcType="VARCHAR" property="balance" />
+    <result column="in_amount" jdbcType="DECIMAL" property="inAmount" />
+    <result column="out_amount" jdbcType="DECIMAL" property="outAmount" />
+    <result column="alipay_order_no" jdbcType="VARCHAR" property="alipayOrderNo" />
+    <result column="merchant_order_no" jdbcType="VARCHAR" property="merchantOrderNo" />
+    <result column="self_user_id" jdbcType="VARCHAR" property="selfUserId" />
+    <result column="opt_user_id" jdbcType="VARCHAR" property="optUserId" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="seller_Nick" jdbcType="VARCHAR" property="sellerNick" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+    <result column="first_sys_id" jdbcType="BIGINT" property="firstSysId" />
+    <result column="first_sys_name" jdbcType="VARCHAR" property="firstSysName" />
+    <result column="second_sys_id" jdbcType="BIGINT" property="secondSysId" />
+    <result column="second_sys_name" jdbcType="VARCHAR" property="secondSysName" />
+    <result column="platForm_No" jdbcType="VARCHAR" property="platformNo" />
+    <result column="new_sys_subject_id" jdbcType="BIGINT" property="newSysSubjectId" />
+    <result column="new_Sys_Subject_Name" jdbcType="VARCHAR" property="newSysSubjectName" />
+    <result column="new_Type" jdbcType="INTEGER" property="newType" />
+    <result column="is_Sign" jdbcType="INTEGER" property="isSign" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="sign_Time" jdbcType="TIMESTAMP" property="signTime" />
+    <result column="new_platform_subject_id" jdbcType="BIGINT" property="newPlatformSubjectId" />
+    <result column="new_Platform_Subject_Name" jdbcType="VARCHAR" property="newPlatformSubjectName" />
+    <result column="is_Exception" jdbcType="INTEGER" property="isException" />
+    <result column="return_id" jdbcType="VARCHAR" property="returnId" />
+    <result column="exception_Msg" jdbcType="VARCHAR" property="exceptionMsg" />
+    <result column="fenxiao_id" jdbcType="BIGINT" property="fenxiaoId" />
+    <result column="debtor_Code" jdbcType="VARCHAR" property="debtorCode" />
+    <result column="debtor_Subject" jdbcType="VARCHAR" property="debtorSubject" />
+    <result column="debtor_XNEGP" jdbcType="VARCHAR" property="debtorXnegp" />
+    <result column="debtor_Acc_Type" jdbcType="VARCHAR" property="debtorAccType" />
+    <result column="debtor_Cash_Flow_Code" jdbcType="VARCHAR" property="debtorCashFlowCode" />
+    <result column="credit_Code" jdbcType="VARCHAR" property="creditCode" />
+    <result column="credit_Subject" jdbcType="VARCHAR" property="creditSubject" />
+    <result column="credit_XNEGP" jdbcType="VARCHAR" property="creditXnegp" />
+    <result column="credit_Acc_Type" jdbcType="VARCHAR" property="creditAccType" />
+    <result column="credit_Cash_Flow_Code" jdbcType="VARCHAR" property="creditCashFlowCode" />
+    <result column="is_reconciled" jdbcType="BIT" property="isReconciled" />
+    <result column="reconcile_time" jdbcType="TIMESTAMP" property="reconcileTime" />
+    <result column="ims_Push_Msg" jdbcType="VARCHAR" property="imsPushMsg" />
+    <result column="ims_Push_Time" jdbcType="TIMESTAMP" property="imsPushTime" />
+    <result column="cancel" jdbcType="BIT" property="cancel" />
+    <result column="cancel_operator" jdbcType="VARCHAR" property="cancelOperator" />
+    <result column="cancel_date" jdbcType="TIMESTAMP" property="cancelDate" />
+    <result column="subject_convert" jdbcType="INTEGER" property="subjectConvert" />
+    <result column="plus_or_minus" jdbcType="INTEGER" property="plusOrMinus" />
+    <result column="test_field" jdbcType="VARCHAR" property="testField" />
+    <result column="sapcolsechangtime" jdbcType="TIMESTAMP" property="sapcolsechangtime" />
+    <result column="is_hz" jdbcType="INTEGER" property="isHz" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.entity.erpreport.AlipayAccountOrder">
+    <result column="memo" jdbcType="LONGVARCHAR" property="memo" />
+  </resultMap>
+
+  <select id="findImsOrSapOutTimeAndError"
+          resultMap="ResultMapWithBLOBs">
+    SELECT id,create_time,shop_id,ims_push_time,ims_push_msg,
+      is_sign,alipay_order_no,platform_no
+    from alipay_account_order
+    where tenant_id=72157623227191517
+    <![CDATA[
+    and is_sign = #{sign} and ims_push_time <= #{startDate}
+    and ims_push_time >= '2018-10-11 00:00:00'
+    ]]>
+  </select>
+
+  <select id="findLeakageOfWater"
+          resultType="java.lang.Integer">
+    select count(1) from alipay_account_order a left join erp_base.shop s on a.shop_id=s.id
+    where s.tenant_id=72157623227191517
+    and s.code='wsdianshang'
+    <![CDATA[
+    and a.create_time >= #{startDate} and  a.create_time < #{endDate}
+    ]]>
+  </select>
+
+  <select id="selectMarginOrder" resultMap="BaseResultMap">
+    SELECT * FROM alipay_account_order where
+    (new_platform_subject_name='花呗-保证金退款'
+    or new_platform_subject_name='花呗分期-保证金退款'
+    or new_platform_subject_name='保证金退款'
+    )
+    <![CDATA[
+    AND created>=#{created}
+    ]]>
+  </select>
+
+  <select id="selectTransferOrder" resultMap="BaseResultMap">
+    SELECT * FROM alipay_account_order WHERE
+    memo='转账' AND created>=#{created}
+  </select>
+
+  <select id="selectJFBOrder" resultMap="BaseResultMap">
+    SELECT * from alipay_account_order WHERE
+    memo LIKE 'refundplatform_TradeRefundScene%' AND self_user_id=20887214719134630156 and created>=#{created}
+  </select>
+</mapper>

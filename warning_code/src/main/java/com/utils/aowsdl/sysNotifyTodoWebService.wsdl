@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="ISysNotifyTodoWebServiceService" targetNamespace="http://webservice.notify.sys.kmss.landray.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservice.notify.sys.kmss.landray.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.notify.sys.kmss.landray.com/" xmlns="http://webservice.notify.sys.kmss.landray.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="notifyTodoUpdateContext">
+<xs:sequence>
+<xs:element minOccurs="0" name="appName" type="xs:string"/>
+<xs:element minOccurs="0" name="createTime" type="xs:string"/>
+<xs:element minOccurs="0" name="docCreator" type="xs:string"/>
+<xs:element minOccurs="0" name="extendContent" type="xs:string"/>
+<xs:element minOccurs="0" name="fdDelayTime" type="xs:string"/>
+<xs:element minOccurs="0" name="fdSendType" type="xs:string"/>
+<xs:element minOccurs="0" name="fdSubModel" type="xs:string"/>
+<xs:element minOccurs="0" name="key" type="xs:string"/>
+<xs:element minOccurs="0" name="level" type="xs:int"/>
+<xs:element minOccurs="0" name="link" type="xs:string"/>
+<xs:element minOccurs="0" name="modelId" type="xs:string"/>
+<xs:element minOccurs="0" name="modelName" type="xs:string"/>
+<xs:element minOccurs="0" name="others" type="xs:string"/>
+<xs:element minOccurs="0" name="param1" type="xs:string"/>
+<xs:element minOccurs="0" name="param2" type="xs:string"/>
+<xs:element minOccurs="0" name="subject" type="xs:string"/>
+<xs:element name="type" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="notifyTodoAppResult">
+<xs:sequence>
+<xs:element minOccurs="0" name="message" type="xs:string"/>
+<xs:element name="returnState" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="notifyTodoRemoveContext">
+<xs:sequence>
+<xs:element minOccurs="0" name="appName" type="xs:string"/>
+<xs:element minOccurs="0" name="key" type="xs:string"/>
+<xs:element minOccurs="0" name="modelId" type="xs:string"/>
+<xs:element minOccurs="0" name="modelName" type="xs:string"/>
+<xs:element name="optType" type="xs:int"/>
+<xs:element minOccurs="0" name="param1" type="xs:string"/>
+<xs:element minOccurs="0" name="param2" type="xs:string"/>
+<xs:element minOccurs="0" name="targets" type="xs:string"/>
+<xs:element name="type" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="notifyTodoGetContext">
+<xs:sequence>
+<xs:element minOccurs="0" name="otherCond" type="xs:string"/>
+<xs:element name="pageNo" type="xs:int"/>
+<xs:element name="rowSize" type="xs:int"/>
+<xs:element minOccurs="0" name="targets" type="xs:string"/>
+<xs:element name="type" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="notifyTodoGetCountContext">
+<xs:sequence>
+<xs:element minOccurs="0" name="target" type="xs:string"/>
+<xs:element minOccurs="0" name="types" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="notifyTodoSendContext">
+<xs:sequence>
+<xs:element minOccurs="0" name="appName" type="xs:string"/>
+<xs:element minOccurs="0" name="createTime" type="xs:string"/>
+<xs:element minOccurs="0" name="docCreator" type="xs:string"/>
+<xs:element minOccurs="0" name="extendContent" type="xs:string"/>
+<xs:element minOccurs="0" name="fdDelayTime" type="xs:string"/>
+<xs:element minOccurs="0" name="fdSendType" type="xs:string"/>
+<xs:element minOccurs="0" name="fdSubModel" type="xs:string"/>
+<xs:element minOccurs="0" name="key" type="xs:string"/>
+<xs:element minOccurs="0" name="level" type="xs:int"/>
+<xs:element minOccurs="0" name="link" type="xs:string"/>
+<xs:element minOccurs="0" name="modelId" type="xs:string"/>
+<xs:element minOccurs="0" name="modelName" type="xs:string"/>
+<xs:element minOccurs="0" name="others" type="xs:string"/>
+<xs:element minOccurs="0" name="param1" type="xs:string"/>
+<xs:element minOccurs="0" name="param2" type="xs:string"/>
+<xs:element minOccurs="0" name="subject" type="xs:string"/>
+<xs:element minOccurs="0" name="targets" type="xs:string"/>
+<xs:element minOccurs="0" name="type" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element minOccurs="0" name="message" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Exception" type="Exception"/>
+<xs:element name="updateTodo" type="updateTodo"/>
+<xs:complexType name="updateTodo">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="notifyTodoUpdateContext"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="updateTodoResponse" type="updateTodoResponse"/>
+<xs:complexType name="updateTodoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="notifyTodoAppResult"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="setTodoDone" type="setTodoDone"/>
+<xs:complexType name="setTodoDone">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="notifyTodoRemoveContext"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="setTodoDoneResponse" type="setTodoDoneResponse"/>
+<xs:complexType name="setTodoDoneResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="notifyTodoAppResult"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getTodo" type="getTodo"/>
+<xs:complexType name="getTodo">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="notifyTodoGetContext"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getTodoResponse" type="getTodoResponse"/>
+<xs:complexType name="getTodoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="notifyTodoAppResult"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getTodoCount" type="getTodoCount"/>
+<xs:complexType name="getTodoCount">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="notifyTodoGetCountContext"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="getTodoCountResponse" type="getTodoCountResponse"/>
+<xs:complexType name="getTodoCountResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="notifyTodoAppResult"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="deleteTodo" type="deleteTodo"/>
+<xs:complexType name="deleteTodo">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="notifyTodoRemoveContext"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="deleteTodoResponse" type="deleteTodoResponse"/>
+<xs:complexType name="deleteTodoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="notifyTodoAppResult"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="sendTodo" type="sendTodo"/>
+<xs:complexType name="sendTodo">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="notifyTodoSendContext"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="sendTodoResponse" type="sendTodoResponse"/>
+<xs:complexType name="sendTodoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="notifyTodoAppResult"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+
+  </wsdl:types>
+  <wsdl:message name="setTodoDoneResponse">
+    <wsdl:part element="tns:setTodoDoneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateTodoResponse">
+    <wsdl:part element="tns:updateTodoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendTodoResponse">
+    <wsdl:part element="tns:sendTodoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendTodo">
+    <wsdl:part element="tns:sendTodo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTodo">
+    <wsdl:part element="tns:getTodo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteTodo">
+    <wsdl:part element="tns:deleteTodo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setTodoDone">
+    <wsdl:part element="tns:setTodoDone" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTodoCount">
+    <wsdl:part element="tns:getTodoCount" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTodoResponse">
+    <wsdl:part element="tns:getTodoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateTodo">
+    <wsdl:part element="tns:updateTodo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteTodoResponse">
+    <wsdl:part element="tns:deleteTodoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTodoCountResponse">
+    <wsdl:part element="tns:getTodoCountResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ISysNotifyTodoWebService">
+    <wsdl:operation name="updateTodo">
+      <wsdl:input message="tns:updateTodo" name="updateTodo">
+    </wsdl:input>
+      <wsdl:output message="tns:updateTodoResponse" name="updateTodoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setTodoDone">
+      <wsdl:input message="tns:setTodoDone" name="setTodoDone">
+    </wsdl:input>
+      <wsdl:output message="tns:setTodoDoneResponse" name="setTodoDoneResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTodo">
+      <wsdl:input message="tns:getTodo" name="getTodo">
+    </wsdl:input>
+      <wsdl:output message="tns:getTodoResponse" name="getTodoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTodoCount">
+      <wsdl:input message="tns:getTodoCount" name="getTodoCount">
+    </wsdl:input>
+      <wsdl:output message="tns:getTodoCountResponse" name="getTodoCountResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="deleteTodo">
+      <wsdl:input message="tns:deleteTodo" name="deleteTodo">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteTodoResponse" name="deleteTodoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendTodo">
+      <wsdl:input message="tns:sendTodo" name="sendTodo">
+    </wsdl:input>
+      <wsdl:output message="tns:sendTodoResponse" name="sendTodoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ISysNotifyTodoWebServiceServiceSoapBinding" type="tns:ISysNotifyTodoWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="updateTodo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="updateTodo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateTodoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setTodoDone">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="setTodoDone">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setTodoDoneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTodo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getTodo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTodoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTodoCount">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getTodoCount">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTodoCountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="deleteTodo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteTodo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteTodoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sendTodo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendTodo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendTodoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ISysNotifyTodoWebServiceService">
+    <wsdl:port binding="tns:ISysNotifyTodoWebServiceServiceSoapBinding" name="ISysNotifyTodoWebServicePort">
+      <soap:address location="http://newoa.auxgroup.com/sys/webservice/sysNotifyTodoWebService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

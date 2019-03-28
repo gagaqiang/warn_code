@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erptc.ErrorMsgMapper">
+    <resultMap id="BaseResultMap" type="com.entity.erptc.ErrorMsg">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="error_detail" jdbcType="VARCHAR" property="errorDetail"/>
+        <result column="pid" jdbcType="BIGINT" property="pid"/>
+        <result column="platform_code" jdbcType="VARCHAR" property="platformCode"/>
+        <result column="from_interface" jdbcType="VARCHAR" property="fromInterface"/>
+        <result column="is_deal" jdbcType="INTEGER" property="isDeal"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate"/>
+        <result column="owner" jdbcType="VARCHAR" property="owner"/>
+        <result column="deal_date" jdbcType="TIMESTAMP" property="dealDate"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="shop_id" jdbcType="INTEGER" property="shopId"/>
+        <!--<result column="shop_name" jdbcType="VARCHAR" property="shopName"/>-->
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, code, error_detail, pid, platform_code, from_interface, is_deal,
+        create_date, modify_date, owner, deal_date, version, shop_id
+    </sql>
+
+    <select id="getErrorMsgByParmes" resultMap="BaseResultMap">
+
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM error_msg
+        WHERE 1=1
+        <if test="code != null">
+            and code = #{code}
+        </if>
+        <if test="isDeal != null ">
+            AND is_deal = #{isDeal}
+        </if>
+        <![CDATA[
+        and create_date >= #{startDate}
+         ]]>
+        ORDER BY create_date DESC
+
+    </select>
+
+    <update id="updateIsDeal">
+        update error_msg set is_deal = 1, deal_date = now() where code=#{code} and platform_code=#{platformCode};
+    </update>
+
+
+</mapper>

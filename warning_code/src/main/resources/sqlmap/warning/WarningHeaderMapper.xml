@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.warning.WarningHeaderMapper">
+    <resultMap id="BaseResultMap" type="com.entity.warning.WarningHeader">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="notes" jdbcType="VARCHAR" property="notes"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="warn_type" jdbcType="INTEGER" property="warnType"/>
+        <result column="frequency_type" jdbcType="INTEGER" property="frequencyType"/>
+        <result column="days" jdbcType="INTEGER" property="days"/>
+        <result column="hours" jdbcType="INTEGER" property="hours"/>
+        <result column="mins" jdbcType="INTEGER" property="mins"/>
+        <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
+        <result column="program" jdbcType="VARCHAR" property="program"/>
+        <result column="program_file_name" jdbcType="VARCHAR" property="programFileName"/>
+        <result column="program_file_url" jdbcType="VARCHAR" property="programFileUrl"/>
+        <result column="program_file_key" jdbcType="VARCHAR" property="programFileKey"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="total" jdbcType="INTEGER" property="total"/>
+        <result column="processed_num" jdbcType="INTEGER" property="processedNum"/>
+        <result column="un_processed_num" jdbcType="INTEGER" property="unProcessedNum"/>
+        <result column="total_order_number" jdbcType="INTEGER" property="totalOrderNumber"/>
+        <result column="current_order_number" jdbcType="INTEGER" property="currentOrderNumber"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="users" jdbcType="VARCHAR" property="users"/>
+        <result column="attribuate1" jdbcType="VARCHAR" property="attribuate1"/>
+        <result column="attribuate2" jdbcType="VARCHAR" property="attribuate2"/>
+        <result column="attribuate3" jdbcType="VARCHAR" property="attribuate3"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, type, code, name, notes, message, warn_type, frequency_type, days, hours, mins, 
+    start_time, end_time, program,program_file_name, program_file_url,program_file_key,
+    create_time, last_time,status, total, processed_num, un_processed_num, total_order_number,
+    current_order_number,version, users, attribuate1, attribuate2, attribuate3
+  </sql>
+
+    <select id="getEntityById"
+            resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from warning_header
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectByPrimaryKey"
+            parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warning_header
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey"
+            parameterType="java.lang.Integer">
+    delete from warning_header
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+    <insert id="insertSelective"
+            keyProperty="id"
+            useGeneratedKeys="true"
+            parameterType="com.entity.warning.WarningHeader">
+        insert into warning_header
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="notes != null">
+                notes,
+            </if>
+            <if test="message != null">
+                message,
+            </if>
+            <if test="warnType != null">
+                warn_type,
+            </if>
+            <if test="frequencyType != null">
+                frequency_type,
+            </if>
+            <if test="days != null">
+                days,
+            </if>
+            <if test="hours != null">
+                hours,
+            </if>
+            <if test="mins != null">
+                mins,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="program != null">
+                program,
+            </if>
+            <if test="programFileName != null">
+                program_file_name,
+            </if>
+            <if test="programFileUrl != null">
+                program_file_url,
+            </if>
+            <if test="programFileKey != null">
+                program_file_key,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastTime != null">
+                last_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="total != null">
+                total,
+            </if>
+            <if test="processedNum != null">
+                processed_num,
+            </if>
+            <if test="unProcessedNum != null">
+                un_processed_num,
+            </if>
+            <if test="totalOrderNumber != null">
+                total_order_number,
+            </if>
+            <if test="currentOrderNumber != null">
+                current_order_number,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="users != null">
+                users,
+            </if>
+            <if test="attribuate1 != null">
+                attribuate1,
+            </if>
+            <if test="attribuate2 != null">
+                attribuate2,
+            </if>
+            <if test="attribuate3 != null">
+                attribuate3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null">
+                #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="warnType != null">
+                #{warnType,jdbcType=INTEGER},
+            </if>
+            <if test="frequencyType != null">
+                #{frequencyType,jdbcType=INTEGER},
+            </if>
+            <if test="days != null">
+                #{days,jdbcType=INTEGER},
+            </if>
+            <if test="hours != null">
+                #{hours,jdbcType=INTEGER},
+            </if>
+            <if test="mins != null">
+                #{mins,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=VARCHAR},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=VARCHAR},
+            </if>
+            <if test="program != null">
+                #{program,jdbcType=VARCHAR},
+            </if>
+            <if test="programFileName != null">
+                #{programFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="programFileUrl != null">
+                #{programFileUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="programFileKey != null">
+                #{programFileKey,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastTime != null">
+                #{lastTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="total != null">
+                #{total,jdbcType=INTEGER},
+            </if>
+            <if test="processedNum != null">
+                #{processedNum,jdbcType=INTEGER},
+            </if>
+            <if test="unProcessedNum != null">
+                #{unProcessedNum,jdbcType=INTEGER},
+            </if>
+            <if test="totalOrderNumber != null">
+                #{totalOrderNumber,jdbcType=INTEGER},
+            </if>
+            <if test="currentOrderNumber != null">
+                #{currentOrderNumber,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+            <if test="users != null">
+                #{users,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate1 != null">
+                #{attribuate1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate2 != null">
+                #{attribuate2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate3 != null">
+                #{attribuate3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.entity.warning.WarningHeader">
+        update warning_header
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="notes != null">
+                notes = #{notes,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null">
+                message = #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="warnType != null">
+                warn_type = #{warnType,jdbcType=INTEGER},
+            </if>
+            <if test="frequencyType != null">
+                frequency_type = #{frequencyType,jdbcType=INTEGER},
+            </if>
+            <if test="days != null">
+                days = #{days,jdbcType=INTEGER},
+            </if>
+            <if test="hours != null">
+                hours = #{hours,jdbcType=INTEGER},
+            </if>
+            <if test="mins != null">
+                mins = #{mins,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=VARCHAR},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=VARCHAR},
+            </if>
+            <if test="program != null">
+                program = #{program,jdbcType=VARCHAR},
+            </if>
+            <if test="programFileName != null">
+                program_file_name = #{programFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="programFileUrl != null">
+                program_file_url = #{programFileUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="programFileKey != null">
+                program_file_key = #{programFileKey,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastTime != null">
+                last_time = #{lastTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="total != null">
+                total = #{total,jdbcType=INTEGER},
+            </if>
+            <if test="processedNum != null">
+                processed_num = #{processedNum,jdbcType=INTEGER},
+            </if>
+            <if test="unProcessedNum != null">
+                un_processed_num = #{unProcessedNum,jdbcType=INTEGER},
+            </if>
+            <if test="totalOrderNumber != null">
+                total_order_number = #{totalOrderNumber,jdbcType=INTEGER},
+            </if>
+            <if test="currentOrderNumber != null">
+                current_order_number = #{currentOrderNumber,jdbcType=INTEGER},
+            </if>
+            version = version + 1 ,
+            <if test="users != null">
+                users = #{users,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate1 != null">
+                attribuate1 = #{attribuate1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate2 != null">
+                attribuate2 = #{attribuate2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribuate3 != null">
+                attribuate3 = #{attribuate3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findWarningHeaderPagination"
+            parameterType="map"
+            resultType="com.dto.warning.WarningHeaderDTO">
+        SELECT
+        wh.id warningHeaderId,
+        wh.type type,
+        wh.CODE code,
+        wh.NAME name,
+        wh.notes notes,
+        wh.message message,
+        wh.warn_type warnType,
+        wh.frequency_type frequencyType,
+        wh.days days,
+        wh.hours hours,
+        wh.mins mins,
+        wh.start_time startTime,
+        wh.end_time endTime,
+        wh.program program,
+        wh.program_file_name programFileName,
+        wh.program_file_url programFileUrl,
+        wh.program_file_key programFileKey,
+        wh.STATUS status,
+        wh.total total,
+        wh.processed_num processedNum,
+        wh.un_processed_num unProcessedNum,
+        wh.total_order_number totalOrderNumber,
+        wh.current_order_number currentOrderNumber,
+        wh.users users,
+        wh.version version
+        FROM
+        warning_header wh
+        WHERE 1=1
+        <if test="dto.warningHeaderId !=null ">
+            and wh.id = #{dto.warningHeaderId,jdbcType=INTEGER}
+        </if>
+        <if test="dto.code !=null and dto.code !='' ">
+            and (wh.CODE like concat('%',#{dto.code,jdbcType=VARCHAR},'%')
+            or wh.NAME like concat('%',#{dto.code,jdbcType=VARCHAR},'%'))
+        </if>
+        <if test="dto.users !=null and dto.users !='' ">
+            and wh.users like concat('%',#{dto.users,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="dto.status !=null ">
+            and wh.STATUS = #{dto.status,jdbcType=INTEGER}
+        </if>
+        <if test="dto.type !=null ">
+            and wh.type = #{dto.type,jdbcType=INTEGER}
+        </if>
+        ORDER BY id DESC
+        limit #{startNum} ,#{pageSize}
+    </select>
+
+    <select id="findWarningHeaderCount"
+            parameterType="com.dto.warning.WarningHeaderDTO"
+            resultType="java.lang.Integer">
+        SELECT count(1) FROM
+        warning_header wh
+        WHERE 1=1
+        <if test="warningHeaderId !=null ">
+            and wh.id = #{warningHeaderId,jdbcType=INTEGER}
+        </if>
+        <if test="code !=null and code !='' ">
+            and (wh.CODE like concat('%',#{code,jdbcType=VARCHAR},'%')
+            or wh.NAME like concat('%',#{code,jdbcType=VARCHAR},'%'))
+        </if>
+        <if test="users !=null and users !='' ">
+            and wh.users like concat('%',#{users,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="status !=null ">
+            and wh.STATUS = #{status,jdbcType=INTEGER}
+        </if>
+        <if test="type !=null ">
+            and wh.type = #{type,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getWarnReport"
+            resultType="com.dto.warning.WarningReportDTO">
+      SELECT
+      SUM(total) as yjTotal,
+      SUM(processed_num) as dealTotal,
+      SUM(un_processed_num) as undoTotal,
+      SUM(total_order_number) AS totalOrder,
+      SUM(current_order_number) AS undoOrder,
+      (SUM(total_order_number)-SUM(current_order_number)) AS dealOrder
+      FROM warning_header;
+  </select>
+
+    <select id="getWarningHeaderByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warning_header
+        where code = #{code} AND status = 1
+    </select>
+
+    <select id="getAllCodeList"
+            resultType="com.dto.warning.WarningHeaderDTO">
+    select  code  from warning_header
+  </select>
+
+
+    <select id="getAllWarning" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from warning_header
+    </select>
+</mapper>

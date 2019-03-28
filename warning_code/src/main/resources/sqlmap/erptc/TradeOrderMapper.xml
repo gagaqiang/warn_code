@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erptc.TradeOrderMapper">
+    <resultMap id="ResultMap" type="TradeOrderHeader">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="platformCode" column="platform_code"/>
+        <result property="imsOrderPushSign" column="ims_order_push_sign"/>
+        <result property="imsOrderPushMsg" column="ims_order_push_msg"/>
+        <result property="imsOrderPushTime" column="ims_order_push_time"/>
+    </resultMap>
+
+    <select id="listByImsOrderPushSign" resultMap="ResultMap">
+        select id, create_date, shop_id, platform_code, ims_order_push_sign, ims_order_push_msg, ims_order_push_time  from trade_order_header
+        where tenant_id=72157623227191517 and ims_order_push_sign in
+        <foreach collection="imsOrderPushSign" index="index" item="sign" open="(" close=")" separator=",">
+            #{sign}
+        </foreach>
+        <![CDATA[
+        and ims_order_push_time <= #{startDate} AND ims_order_push_time >= '2018-09-25 00:00:00'
+         ]]>
+    </select>
+
+    <select id="listByImsReturnOrderPushSign" resultMap="ResultMap">
+        select id, create_date, shop_id, platform_code, ims_order_push_sign, ims_order_push_msg, ims_order_push_time  from trade_return_order_header
+        where tenant_id=72157623227191517 and ims_order_push_sign in
+        <foreach collection="imsOrderPushSign" index="index" item="sign" open="(" close=")" separator=",">
+            #{sign}
+        </foreach>
+        <![CDATA[
+        and ims_order_push_time <= #{startDate} AND ims_order_push_time >= '2018-09-25 00:00:00'
+         ]]>
+    </select>
+
+    <select id="listExceptionReturnOrder" resultMap="ResultMap">
+        SELECT shop_id, platform_code FROM  trade_return_order_header
+        WHERE wlb_match_exception!=0 AND cancel=0
+        <![CDATA[
+        AND create_date<=DATE_SUB(CURDATE(), INTERVAL 45 DAY)
+        AND create_date>='2018-01-01 00:00:00'
+        and receive = 0
+          ]]>
+    </select>
+
+</mapper>

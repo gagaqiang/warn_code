@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.erptc.TradeRefundMapper">
+
+    <resultMap id="ResultMap" type="TradeInvoiceHeader">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="platfromCode" column="platfrom_code"/>
+        <result property="amount" column="amount"/>
+        <result property="imsInvoicePushSign" column="ims_invoice_push_sign"/>
+        <result property="imsInvoicePushMsg" column="ims_invoice_push_msg"/>
+        <result property="imsInvoicePushTime" column="ims_invoice_push_time"/>
+    </resultMap>
+
+    <select id="listNoAgreeRefund" resultMap="ResultMap">
+        SELECT
+            r.platfrom_code as platfromCode, r.shop_id as shopId
+        FROM
+            trade_refund_order r,
+          (select min(i.pid) pid from invoice_detail d,trade_order_invoice i where
+                 d.invoice_id=i.id and i.state!=2 and i.invoice_status!=1   GROUP BY  i.pid) i
+        WHERE
+            r.approve=0 and ifnull(r.cancel,0)=0 and
+                (
+                    ifnull(r.auto_execute_status, 0) = 0
+                    OR r.auto_execute_status = 1
+                )
+            AND ifnull(r.agree_refuse, 0) = 0
+            AND (
+                r.STATUS = 'SUCCESS'
+                OR r.fx_status = 5
+            )
+            AND r.pid = i.pid
+            <![CDATA[
+        and r.modify_date <= #{endDate} AND r.modify_date >= #{startDate}
+         ]]>
+    </select>
+
+    <select id="listErrorTypeRefund" resultMap="ResultMap">
+      SELECT t.platfrom_code as platfromCode,t.shop_id  as shopId
+      FROM trade_refund_order t, trade_order_header h WHERE
+        <![CDATA[
+        t.pid=h.id AND
+       ((t.refund_type='refund' and ((t.amount>800) or (h.amount * 0.49 < t.amount))) or
+			(t.refund_type='return' and ((t.amount<=800) or (h.amount * 0.49 >= t.amount))))
+        AND t.create_date >= #{endDate} and t.modify_date <= #{startDate} AND t.invoice_process_status<1
+         ]]>
+    </select>
+
+    <select id="selectMarginRefund" resultMap="ResultMap">
+      SELECT id, amount, platfrom_code as platfromCode from trade_refund_order where platfrom_code=#{platfromCode}
+    </select>
+</mapper>
