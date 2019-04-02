@@ -1,0 +1,3 @@
+check.sh 检查项目是否启动
+start.sh 启动项目命令
+stop.sh  停止项目命令
